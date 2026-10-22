@@ -60,9 +60,11 @@ const projects = [
     title: "Cake Corner Website",
     description:
       "A website project for a cake business, demonstrating practical website development and presentation skills.",
-    technologies: ["React", "JavaScript", "CSS"],
+    technologies: ["React", "JavaScript", "CSS", "Firebase"],
     link: "https://cake-corner-bff88.web.app",
     linkLabel: "Visit Live Website",
+    sourceLink:
+      "https://github.com/nadiajaved005/cake-corner-website",
     symbol: "✿",
   },
   {
@@ -74,6 +76,7 @@ const projects = [
     technologies: ["React", "Firebase", "Firestore"],
     link: "",
     linkLabel: "",
+    sourceLink: "",
     symbol: "▦",
   },
   {
@@ -85,6 +88,7 @@ const projects = [
     technologies: ["MS Word", "Excel", "PowerPoint"],
     link: "",
     linkLabel: "",
+    sourceLink: "",
     symbol: "▤",
   },
 ];
@@ -452,16 +456,29 @@ function App() {
                     ))}
                   </div>
 
-                  {project.link && (
-                    <a
-                      className="project-link"
-                      href={project.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {project.linkLabel} <span>↗</span>
-                    </a>
-                  )}
+                  <div className="project-links">
+                    {project.link && (
+                      <a
+                        className="project-link"
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.linkLabel} <span>↗</span>
+                      </a>
+                    )}
+
+                    {project.sourceLink && (
+                      <a
+                        className="project-link"
+                        href={project.sourceLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Source Code <span>↗</span>
+                      </a>
+                    )}
+                  </div>
                 </article>
               ))}
             </div>
