@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import "./App.css";
+import profilePhoto from "./assets/profile.jpg";
 
 const skills = [
   {
@@ -216,7 +217,7 @@ function App() {
             </div>
           </div>
 
-          {/* PROFILE CARD AND FLOATING INFORMATION */}
+          {/* PROFILE CARD */}
           <div className="hero-visual">
             <div className="visual-glow" />
 
@@ -232,7 +233,11 @@ function App() {
               <div className="avatar">
                 <div className="avatar-ring avatar-ring-one" />
                 <div className="avatar-ring avatar-ring-two" />
-                <span>NJ</span>
+                <img
+                  src={profilePhoto}
+                  alt="Nadia Javed"
+                  className="profile-photo"
+                />
               </div>
 
               <h3>Nadia Javed</h3>
