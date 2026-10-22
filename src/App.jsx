@@ -1,128 +1,238 @@
+
+import { useState } from "react";
 import "./App.css";
 import profilePhoto from "./assets/profile.jpg";
 
-function App() {
-  const skills = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "React Native",
-    "Firebase",
-    "MS Word",
-    "MS Excel",
-    "MS PowerPoint",
-    "Computer Skills",
-  ];
+const skills = [
+  {
+    icon: "▤",
+    title: "Microsoft Office",
+    description: "Word, Excel, PowerPoint, documents and spreadsheets.",
+    tags: ["Word", "Excel", "PowerPoint"],
+  },
+  {
+    icon: "</>",
+    title: "Web Development",
+    description: "Building websites with modern web technologies.",
+    tags: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    icon: "⚛",
+    title: "React.js",
+    description: "Reusable components, hooks and responsive interfaces.",
+    tags: ["React", "Hooks", "Vite"],
+  },
+  {
+    icon: "▣",
+    title: "React Native",
+    description: "Learning to build mobile applications using React Native.",
+    tags: ["Mobile UI", "Components"],
+  },
+  {
+    icon: "☁",
+    title: "Firebase",
+    description: "Cloud services and database integration for applications.",
+    tags: ["Firebase", "Firestore"],
+  },
+  {
+    icon: "⌘",
+    title: "Git & GitHub",
+    description: "Version control and project source-code management.",
+    tags: ["Git", "GitHub"],
+  },
+  {
+    icon: "▧",
+    title: "Office Administration",
+    description: "Document preparation, data handling and record organization.",
+    tags: ["Documentation", "Data Entry"],
+  },
+  {
+    icon: "✦",
+    title: "Professional Skills",
+    description: "Communication, adaptability, teamwork and problem-solving.",
+    tags: ["Learning", "Organization"],
+  },
+];
 
-  const projects = [
-    {
-      number: "01",
-      title: "Cake Corner Website",
-      category: "Web Development",
-      description:
-        "A website project built to present a cake business and its products through a clean, user-friendly interface.",
-      technologies: ["HTML", "CSS", "JavaScript", "Firebase"],
-      liveLink: "https://cake-corner-bff88.web.app",
-      githubLink: "https://github.com/nadiajaved005/cake-corner-website",
-    },
-    {
-      number: "02",
-      title: "Portfolio Website",
-      category: "Personal Portfolio",
-      description:
-        "A professional portfolio showcasing my education, technical skills, projects, and experience.",
-      technologies: ["React", "CSS", "JavaScript"],
-      liveLink: "https://nadiajaved005.github.io/nadia-javed-portfolio/",
-      githubLink: "https://github.com/nadiajaved005/nadia-javed-portfolio",
-    },
-    {
-      number: "03",
-      title: "Super Store Application",
-      category: "Application Development",
-      description:
-        "A store management project focused on organizing products and presenting information in a structured interface.",
-      technologies: ["React", "JavaScript", "Firebase"],
-      liveLink: "",
-      githubLink: "",
-    },
-  ];
+const projects = [
+  {
+    number: "01",
+    category: "WEB DEVELOPMENT",
+    title: "Cake Corner Website",
+    description:
+      "A website project for a cake business, demonstrating practical website development and presentation skills.",
+    technologies: ["React", "JavaScript", "CSS", "Firebase"],
+    link: "https://cake-corner-bff88.web.app",
+    linkLabel: "Visit Live Website",
+    sourceLink:
+      "https://github.com/nadiajaved005/cake-corner-website",
+    symbol: "✿",
+  },
+  {
+    number: "02",
+    category: "RETAIL MANAGEMENT",
+    title: "Super Store Management System",
+    description:
+      "A retail application project covering product management, billing, inventory, purchases and sales reports.",
+    technologies: ["React", "Firebase", "Firestore"],
+    link: "",
+    linkLabel: "",
+    sourceLink: "",
+    symbol: "▦",
+  },
+  {
+    number: "03",
+    category: "OFFICE PRODUCTIVITY",
+    title: "Office & Computer Skills",
+    description:
+      "A collection of practical skills relevant to office documentation, spreadsheet tasks and professional computer work.",
+    technologies: ["MS Word", "Excel", "PowerPoint"],
+    link: "",
+    linkLabel: "",
+    sourceLink: "",
+    symbol: "▤",
+  },
+];
+
+const education = [
+  {
+    year: "2025",
+    title: "Bachelor of Education (B.Ed)",
+    institution: "The Islamia University of Bahawalpur",
+    description: "Professional education qualification.",
+  },
+  {
+    year: "2023",
+    title: "BS Chemistry",
+    institution:
+      "Khwaja Fareed University of Engineering and Information Technology",
+    description: "Undergraduate degree in Chemistry.",
+  },
+  {
+    year: "2023",
+    title: "Teaching Internship",
+    institution: "Punjab Group of Colleges",
+    description: "Teaching internship experience in an educational setting.",
+  },
+];
+
+const navigation = [
+  ["home", "Home"],
+  ["about", "About"],
+  ["skills", "Skills"],
+  ["education", "Education"],
+  ["projects", "Projects"],
+  ["contact", "Contact"],
+];
+
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
   return (
-    <div className="portfolio">
-      {/* Navigation */}
+    <div className="portfolio" id="home">
       <header className="navbar">
-        <a className="brand" href="#home">
-          Nadia<span>.</span>
+        <a className="brand" href="#home" onClick={closeMenu}>
+          <span className="brand-mark">NJ</span>
+          <span className="brand-copy">
+            <strong>Nadia Javed</strong>
+            <small>Professional Portfolio</small>
+          </span>
         </a>
 
-        <nav className="nav-links" aria-label="Main navigation">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#education">Education</a>
-          <a href="#projects">Projects</a>
-          <a className="nav-contact" href="#contact">
-            Contact
-          </a>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+
+        <nav className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
+          {navigation.map(([id, label]) => (
+            <a href={`#${id}`} key={id} onClick={closeMenu}>
+              {label}
+            </a>
+          ))}
         </nav>
+
+        <a className="nav-contact" href="#contact" onClick={closeMenu}>
+          Let's Connect <span>↗</span>
+        </a>
       </header>
 
       <main>
-        {/* Hero */}
-        <section className="hero" id="home">
+        {/* HERO */}
+        <section className="hero section-container">
           <div className="hero-content">
-            <p className="eyebrow">WELCOME TO MY PORTFOLIO</p>
+            <div className="availability">
+              <span className="availability-dot" />
+              OPEN TO SUITABLE OPPORTUNITIES
+            </div>
+
+            <p className="eyebrow">HELLO, I'M</p>
 
             <h1>
-              Hello, I'm <span>Nadia Javed</span>
+              Nadia <span>Javed.</span>
             </h1>
 
-            <h2>Graduate | Web Development Learner | Computer Professional</h2>
+            <h2 className="hero-subtitle">
+              Computer Skills, Administration & Web Development
+            </h2>
 
             <p className="hero-description">
-              I have an academic background in Chemistry and Education, along
-              with computer skills and an interest in web development. I am
-              eager to learn, contribute, and grow in a professional
-              environment.
+              A motivated graduate with a background in Chemistry and
+              Education, computer skills, and an interest in technology,
+              banking support and office administration. I am eager to
+              contribute my skills, learn new things and grow professionally.
             </p>
 
             <div className="hero-actions">
               <a className="btn btn-primary" href="#projects">
                 Explore My Work <span>↗</span>
               </a>
-
-              <a
-                className="btn btn-outline"
-                href={`${import.meta.env.BASE_URL}Nadia_Javed_CV.pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View My CV <span>↗</span>
+              <a className="btn btn-outline" href="#contact">
+                Contact Me
               </a>
             </div>
 
-            <div className="intro-strip">
+            <div className="hero-stats">
               <div>
                 <strong>2023</strong>
                 <span>BS Chemistry</span>
               </div>
-
               <div>
                 <strong>2025</strong>
                 <span>B.Ed</span>
               </div>
-
               <div>
-                <strong>Web</strong>
-                <span>Development Projects</span>
+                <strong>8+</strong>
+                <span>Skill Areas</span>
               </div>
             </div>
           </div>
 
+          {/* PROFILE CARD */}
           <div className="hero-visual">
-            <div className="hero-card">
-              <div className="profile-image-wrapper">
+            <div className="visual-glow" />
+
+            <div className="profile-card">
+              <div className="profile-card-header">
+                <span className="profile-label">
+                  <span className="availability-dot" />
+                  PROFESSIONAL PROFILE
+                </span>
+                <span className="profile-star">✦</span>
+              </div>
+
+              <div className="avatar">
+                <div className="avatar-ring avatar-ring-one" />
+                <div className="avatar-ring avatar-ring-two" />
                 <img
                   src={profilePhoto}
                   alt="Nadia Javed"
@@ -130,223 +240,248 @@ function App() {
                 />
               </div>
 
-              <p className="profile-label">ASPIRING PROFESSIONAL</p>
               <h3>Nadia Javed</h3>
-              <p>Zahir Pir, Punjab, Pakistan</p>
+              <p className="profile-subtitle">Graduate · Computer Skills</p>
 
-              <div className="profile-tags">
-                <span>Learning</span>
-                <span>Creating</span>
-                <span>Growing</span>
+              <div className="profile-divider" />
+
+              <div className="profile-detail">
+                <span className="detail-icon">&lt;/&gt;</span>
+                <div>
+                  <strong>Technical Skills</strong>
+                  <span>React · JavaScript · Firebase</span>
+                </div>
+              </div>
+
+              <div className="profile-detail">
+                <span className="detail-icon">▤</span>
+                <div>
+                  <strong>Office Skills</strong>
+                  <span>Word · Excel · PowerPoint</span>
+                </div>
+              </div>
+
+              <a className="profile-discover" href="#about">
+                Discover My Profile <span>→</span>
+              </a>
+            </div>
+
+            <div className="floating-card float-growth">
+              <span className="floating-icon">✦</span>
+              <div>
+                <strong>Growth Mindset</strong>
+                <span>Always learning</span>
+              </div>
+            </div>
+
+            <div className="floating-card float-career">
+              <span className="floating-icon">✓</span>
+              <div>
+                <strong>Career Focus</strong>
+                <span>Ready to contribute</span>
+              </div>
+            </div>
+
+            <div className="floating-card float-web">
+              <span className="floating-icon">&lt;/&gt;</span>
+              <div>
+                <strong>Web Development</strong>
+                <span>React · JavaScript</span>
+              </div>
+            </div>
+
+            <div className="floating-card float-creative">
+              <span className="floating-icon">✧</span>
+              <div>
+                <strong>Creative Thinking</strong>
+                <span>Learning and solving</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* About */}
-        <section className="about-section" id="about">
-          <div className="section-container">
-            <div className="section-heading">
-              <p className="eyebrow">GET TO KNOW ME</p>
-              <h2>About Me</h2>
+        {/* ABOUT */}
+        <section className="section section-container" id="about">
+          <div className="section-heading">
+            <span className="eyebrow">GET TO KNOW ME</span>
+            <h2>
+              About <span>Me</span>
+            </h2>
+            <p>
+              Combining academic knowledge, computer skills and a willingness
+              to learn.
+            </p>
+          </div>
+
+          <div className="about-grid">
+            <article className="about-card">
+              <span className="about-symbol">✦</span>
+              <h3>My Professional Profile</h3>
               <p>
-                A combination of academic knowledge, computer skills, and a
-                willingness to learn.
+                I have completed a BS in Chemistry and a Bachelor of Education.
+                My background includes a teaching internship and practical
+                website projects.
               </p>
-            </div>
+              <p>
+                I am interested in suitable opportunities in computer
+                operations, office administration, banking support and IT.
+                I value accuracy, organization, teamwork and continuous
+                professional development.
+              </p>
+            </article>
 
-            <div className="about-grid">
-              <div className="about-content">
-                <h3>Learning today, building for tomorrow.</h3>
-
-                <p>
-                  I am Nadia Javed, a graduate with a BS in Chemistry and a
-                  Bachelor of Education. My background has helped me develop
-                  analytical thinking, communication, and organizational
-                  skills.
-                </p>
-
-                <p>
-                  I am also developing my technical skills in web development
-                  and building practical projects using modern web
-                  technologies. I am interested in suitable opportunities
-                  where I can apply my abilities, gain experience, and
-                  continue learning.
-                </p>
-
-                <p>
-                  I am open to suitable opportunities in computer-related
-                  work, administration, education, and other professional
-                  fields that match my qualifications and skills.
-                </p>
-
-                <a className="text-link" href="#contact">
-                  Let's Connect <span>→</span>
-                </a>
-              </div>
-
-              <div className="about-highlights">
-                <div className="highlight-card">
-                  <span className="highlight-icon">🎓</span>
-                  <h4>Academic Background</h4>
-                  <p>BS Chemistry and B.Ed</p>
+            <div className="strength-list">
+              <article className="strength-card">
+                <span>01</span>
+                <div>
+                  <h3>Computer & IT</h3>
+                  <p>Website development and software tools.</p>
                 </div>
+              </article>
 
-                <div className="highlight-card">
-                  <span className="highlight-icon">💻</span>
-                  <h4>Technical Skills</h4>
-                  <p>Office tools and web technologies</p>
+              <article className="strength-card">
+                <span>02</span>
+                <div>
+                  <h3>Office & Administration</h3>
+                  <p>Documents, spreadsheets and organized records.</p>
                 </div>
+              </article>
 
-                <div className="highlight-card">
-                  <span className="highlight-icon">📚</span>
-                  <h4>Continuous Learning</h4>
-                  <p>Improving knowledge through practical work</p>
+              <article className="strength-card">
+                <span>03</span>
+                <div>
+                  <h3>Learning & Communication</h3>
+                  <p>Adaptability, communication and problem-solving.</p>
                 </div>
-
-                <div className="highlight-card">
-                  <span className="highlight-icon">🤝</span>
-                  <h4>Professional Growth</h4>
-                  <p>Ready to learn and contribute</p>
-                </div>
-              </div>
+              </article>
             </div>
           </div>
         </section>
 
-        {/* Skills */}
-        <section className="skills-section" id="skills">
+        {/* SKILLS */}
+        <section className="section skills-section" id="skills">
           <div className="section-container">
             <div className="section-heading">
-              <p className="eyebrow">WHAT I CAN DO</p>
-              <h2>My Skills</h2>
+              <span className="eyebrow">WHAT I BRING</span>
+              <h2>
+                Skills & <span>Expertise</span>
+              </h2>
               <p>
-                Skills developed through learning, practice, and project work.
+                Technical, computer and professional skills for a range of
+                suitable roles.
               </p>
             </div>
 
             <div className="skills-grid">
               {skills.map((skill, index) => (
-                <div className="skill-card" key={skill}>
-                  <span className="skill-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3>{skill}</h3>
-                </div>
+                <article className="skill-card" key={skill.title}>
+                  <div className="skill-card-header">
+                    <span className="skill-icon">{skill.icon}</span>
+                    <span className="skill-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <h3>{skill.title}</h3>
+                  <p>{skill.description}</p>
+
+                  <div className="skill-tags">
+                    {skill.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Education and experience */}
-        <section className="education-section" id="education">
-          <div className="section-container">
-            <div className="section-heading">
-              <p className="eyebrow">MY BACKGROUND</p>
-              <h2>Education & Experience</h2>
-              <p>A summary of my academic journey and practical experience.</p>
-            </div>
+        {/* EDUCATION */}
+        <section className="section section-container" id="education">
+          <div className="section-heading">
+            <span className="eyebrow">MY BACKGROUND</span>
+            <h2>
+              Education & <span>Experience</span>
+            </h2>
+            <p>My academic qualifications and early experience.</p>
+          </div>
 
-            <div className="timeline">
-              <article className="timeline-item">
-                <span className="timeline-dot" />
-                <div className="timeline-content">
-                  <span className="timeline-date">2025</span>
-                  <h3>Bachelor of Education (B.Ed)</h3>
-                  <h4>The Islamia University of Bahawalpur (IUB)</h4>
-                  <p>
-                    Completed a professional education qualification focused
-                    on teaching and learning.
-                  </p>
+          <div className="timeline">
+            {education.map((item, index) => (
+              <article className="timeline-item" key={item.title}>
+                <div className="timeline-marker">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="timeline-card">
+                  <span className="timeline-year">{item.year}</span>
+                  <h3>{item.title}</h3>
+                  <h4>{item.institution}</h4>
+                  <p>{item.description}</p>
                 </div>
               </article>
-
-              <article className="timeline-item">
-                <span className="timeline-dot" />
-                <div className="timeline-content">
-                  <span className="timeline-date">2023</span>
-                  <h3>BS Chemistry</h3>
-                  <h4>
-                    Khawaja Fareed University of Engineering and Information
-                    Technology
-                  </h4>
-                  <p>
-                    Completed an undergraduate degree in Chemistry, building
-                    analytical and problem-solving skills.
-                  </p>
-                </div>
-              </article>
-
-              <article className="timeline-item">
-                <span className="timeline-dot" />
-                <div className="timeline-content">
-                  <span className="timeline-date">2023</span>
-                  <h3>Teaching Internship</h3>
-                  <h4>Punjab Group of Colleges</h4>
-                  <p>
-                    Gained practical exposure to an educational environment
-                    through a teaching internship.
-                  </p>
-                </div>
-              </article>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* Projects */}
-        <section className="projects-section" id="projects">
+        {/* PROJECTS */}
+        <section className="section projects-section" id="projects">
           <div className="section-container">
             <div className="section-heading">
-              <p className="eyebrow">MY RECENT WORK</p>
-              <h2>Featured Projects</h2>
+              <span className="eyebrow">SELECTED WORK</span>
+              <h2>
+                Projects & <span>Practical Work</span>
+              </h2>
               <p>
-                Practical work that demonstrates my learning and technical
-                interests.
+                Examples of web development and computer-related work.
               </p>
             </div>
 
             <div className="projects-grid">
               {projects.map((project) => (
                 <article className="project-card" key={project.number}>
-                  <div className="project-top">
+                  <div className="project-header">
                     <span className="project-number">{project.number}</span>
                     <span className="project-category">
                       {project.category}
                     </span>
                   </div>
 
+                  <div className="project-art">
+                    <span>{project.symbol}</span>
+                    <div className="project-art-line" />
+                    <div className="project-art-line short" />
+                  </div>
+
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
 
-                  <div className="project-technologies">
+                  <div className="project-tags">
                     {project.technologies.map((technology) => (
                       <span key={technology}>{technology}</span>
                     ))}
                   </div>
 
                   <div className="project-links">
-                    {project.liveLink && (
+                    {project.link && (
                       <a
-                        href={project.liveLink}
+                        className="project-link"
+                        href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Live Website ↗
+                        {project.linkLabel} <span>↗</span>
                       </a>
                     )}
 
-                    {project.githubLink && (
+                    {project.sourceLink && (
                       <a
-                        href={project.githubLink}
+                        className="project-link"
+                        href={project.sourceLink}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Source Code ↗
+                        View Source Code <span>↗</span>
                       </a>
-                    )}
-
-                    {!project.liveLink && !project.githubLink && (
-                      <span>Project details available on request</span>
                     )}
                   </div>
                 </article>
@@ -355,58 +490,67 @@ function App() {
           </div>
         </section>
 
-        {/* Contact */}
-        <section className="contact-section" id="contact">
-          <div className="section-container">
-            <div className="contact-panel">
-              <p className="eyebrow">LET'S TALK</p>
-              <h2>Let's Build Something Great Together</h2>
-
+        {/* CONTACT */}
+        <section className="section section-container" id="contact">
+          <div className="contact-panel">
+            <div className="contact-copy">
+              <span className="eyebrow">LET'S CONNECT</span>
+              <h2>
+                Ready for the <span>Next Opportunity?</span>
+              </h2>
               <p>
-                I am interested in suitable job opportunities, professional
-                collaboration, and opportunities to learn and grow. Feel free
-                to explore my CV and portfolio.
+                I welcome suitable opportunities in computer operations,
+                office administration, banking support, IT and other
+                professional roles where I can contribute and continue
+                learning.
               </p>
 
               <div className="contact-actions">
                 <a
-                  className="btn btn-primary"
-                  href="https://github.com/nadiajaved005"
+                  className="btn btn-light"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=nadiajaved005@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Visit My GitHub ↗
+                  Email Me <span>↗</span>
                 </a>
 
                 <a
                   className="btn btn-contact-outline"
-                  href={`${import.meta.env.BASE_URL}Nadia_Javed_CV.pdf`}
+                                   href={`${import.meta.env.BASE_URL}Nadia_Javed_CV.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  View My CV ↗
+                  View My CV <span>↗</span>
                 </a>
               </div>
 
-              <p className="contact-location">
-                <span>📍</span> Zahir Pir, Punjab, Pakistan
+              <p className="contact-note">
+                Contact me by email for suitable professional opportunities.
               </p>
+            </div>
+
+            <div className="contact-art">
+              <div className="contact-orbit orbit-a" />
+              <div className="contact-orbit orbit-b" />
+              <div className="contact-monogram">NJ</div>
+              <span className="contact-spark spark-a">✦</span>
+              <span className="contact-spark spark-b">✧</span>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="footer">
-        <a className="brand" href="#home">
-          Nadia<span>.</span>
+        <a className="footer-brand" href="#home">
+          <span className="brand-mark">NJ</span>
+          <strong>Nadia Javed</strong>
         </a>
 
-        <p>
-          © {new Date().getFullYear()} Nadia Javed. All rights reserved.
-        </p>
+        <p>Professional Portfolio · Built with React</p>
 
-        <a href="#home" className="back-to-top">
+        <a href="#home" className="back-top">
           Back to top ↑
         </a>
       </footer>
